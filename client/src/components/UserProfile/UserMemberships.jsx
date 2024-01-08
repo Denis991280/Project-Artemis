@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserMemberships() {
-  const [userMembership, setUserMembership] = useState(null);
+  const navigate = useNavigate()
 
+  const [userMembership, setUserMembership] = useState(null);
+  
   useEffect(() => {
     getUser("http://localhost:8080/users/profile");
   }, []);
@@ -15,6 +18,9 @@ export default function UserMemberships() {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+      if (error.response.status.toString() === "403") {
+        navigate("/login");
+      }
     }
   };
 

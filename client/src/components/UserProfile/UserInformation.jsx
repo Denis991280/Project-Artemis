@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function UserInformation() {
-
+  const navigate = useNavigate()
+  
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -17,6 +19,9 @@ export default function UserInformation() {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+      if (error.response.status.toString() === "403") {
+        navigate("/login");
+      }
     }
   };
 

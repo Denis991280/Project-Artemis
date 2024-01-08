@@ -20,6 +20,9 @@ export default function UserUpdateInformation() {
       console.log(response.data);
     } catch (error) {
       console.log(error);
+      if (error.response.status.toString() === "403") {
+        navigate("/login");
+      }
     }
   };
 
